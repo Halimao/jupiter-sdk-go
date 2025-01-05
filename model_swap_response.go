@@ -10,7 +10,7 @@ package jupiter
 
 type SwapResponse struct {
 	SwapTransaction           string                             `json:"swapTransaction"`
-	LastValidBlockHeight      float64                            `json:"lastValidBlockHeight"`
-	PrioritizationFeeLamports float64                            `json:"prioritizationFeeLamports,omitempty"`
+	LastValidBlockHeight      uint64                             `json:"lastValidBlockHeight"`
+	PrioritizationFeeLamports uint64                             `json:"prioritizationFeeLamports,omitempty"`
 	DynamicSlippageReport     *SwapResponseDynamicSlippageReport `json:"dynamicSlippageReport,omitempty"`
 }

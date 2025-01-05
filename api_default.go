@@ -248,7 +248,7 @@ type DefaultApiQuoteGetOpts struct {
 	PreferLiquidDexes             optional.Bool
 }
 
-func (a *DefaultApiService) QuoteGet(ctx context.Context, inputMint string, outputMint string, amount int32, localVarOptionals *DefaultApiQuoteGetOpts) (QuoteResponse, *http.Response, error) {
+func (a *DefaultApiService) QuoteGet(ctx context.Context, inputMint string, outputMint string, amount uint64, localVarOptionals *DefaultApiQuoteGetOpts) (QuoteResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}

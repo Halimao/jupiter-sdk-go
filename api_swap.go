@@ -136,7 +136,7 @@ Sends a GET request to the Jupiter API to get the best priced quote.
 @return QuoteResponse
 */
 
-type DefaultApiQuoteGetOpts struct {
+type SwapApiQuoteGetOpts struct {
 	SlippageBps                   optional.Int32
 	AutoSlippage                  optional.Bool
 	AutoSlippageCollisionUsdValue optional.Int32
@@ -154,7 +154,7 @@ type DefaultApiQuoteGetOpts struct {
 	PreferLiquidDexes             optional.Bool
 }
 
-func (a *SwapApiService) QuoteGet(ctx context.Context, inputMint string, outputMint string, amount uint64, localVarOptionals *DefaultApiQuoteGetOpts) (QuoteResponse, *http.Response, error) {
+func (a *SwapApiService) QuoteGet(ctx context.Context, inputMint string, outputMint string, amount uint64, localVarOptionals *SwapApiQuoteGetOpts) (QuoteResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}

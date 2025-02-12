@@ -12,9 +12,9 @@ type SwapRequest struct {
 	// The user public key.
 	UserPublicKey string `json:"userPublicKey"`
 	// Default is true. If true, will automatically wrap/unwrap SOL. If false, it will use wSOL token account.  Will be ignored if `destinationTokenAccount` is set because the `destinationTokenAccount` may belong to a different user that we have no authority to close.
-	WrapAndUnwrapSol bool `json:"wrapAndUnwrapSol,omitempty"`
+	WrapAndUnwrapSol bool `json:"wrapAndUnwrapSol"`
 	// Default is true. This enables the usage of shared program accountns. That means no intermediate token accounts or open orders accounts need to be created for the users. But it also means that the likelihood of hot accounts is higher.
-	UseSharedAccounts bool `json:"useSharedAccounts,omitempty"`
+	UseSharedAccounts bool `json:"useSharedAccounts"`
 	// Fee token account, same as the output token for ExactIn and as the input token for ExactOut, it is derived using the seeds = [\"referral_ata\", referral_account, mint] and the `REFER4ZgmyYx9c6He5XfaTMiGfdLwRnkV4RPp9t9iF3` referral contract (only pass in if you set a feeBps and make sure that the feeAccount has been created).
 	FeeAccount string `json:"feeAccount,omitempty"`
 	// The compute unit price to prioritize the transaction, the additional fee will be `computeUnitLimit (1400000) * computeUnitPriceMicroLamports`. If `auto` is used, Jupiter will automatically set a priority fee and it will be capped at 5,000,000 lamports / 0.005 SOL.

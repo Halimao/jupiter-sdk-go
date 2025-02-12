@@ -49,7 +49,9 @@ type APIKey struct {
 }
 
 type Configuration struct {
-	BasePath      string            `json:"basePath,omitempty"`
+	SwapBasePath  string            `json:"swapBasePath,omitempty"`
+	PriceBasePath string            `json:"priceBasePath,omitempty"`
+	TokenBasePath string            `json:"tokenBasePath,omitempty"`
 	Host          string            `json:"host,omitempty"`
 	Scheme        string            `json:"scheme,omitempty"`
 	DefaultHeader map[string]string `json:"defaultHeader,omitempty"`
@@ -57,11 +59,20 @@ type Configuration struct {
 	HTTPClient    *http.Client
 }
 
-func NewConfiguration() *Configuration {
+func NewDefaultConfiguration() *Configuration {
+	return NewConfiguration("")
+}
+
+func NewConfiguration(apiKey string) *Configuration {
 	cfg := &Configuration{
-		BasePath:      "https://quote-api.jup.ag/v6",
+		SwapBasePath:  "https://api.jup.ag/swap/v1",
+		PriceBasePath: "https://api.jup.ag/price/v2",
+		TokenBasePath: "https://api.jup.ag/tokens/v1",
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "Swagger-Codegen/1.0.0/go",
+		UserAgent:     "@Halimao/jupiter-sdk-go",
+	}
+	if apiKey != "" {
+		cfg.AddDefaultHeader("x-api-key", apiKey)
 	}
 	return cfg
 }

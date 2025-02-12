@@ -23,110 +23,16 @@ var (
 	_ context.Context
 )
 
-type DefaultApiService service
+type SwapApiService service
 
 /*
-DefaultApiService GET /indexed-route-map
-DEPRECATED, please use /tokens for tradable mints. Returns a hash map, input mint as key and an array of valid output mint as values, token mints are indexed to reduce the file size
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *DefaultApiIndexedRouteMapGetOpts - Optional Parameters:
-     * @param "OnlyDirectRoutes" (optional.Bool) -  Default is false. Direct Routes limits Jupiter routing to single hop routes only.
-@return IndexedRouteMapResponse
-*/
-
-type DefaultApiIndexedRouteMapGetOpts struct {
-	OnlyDirectRoutes optional.Bool
-}
-
-func (a *DefaultApiService) IndexedRouteMapGet(ctx context.Context, localVarOptionals *DefaultApiIndexedRouteMapGetOpts) (IndexedRouteMapResponse, *http.Response, error) {
-	var (
-		localVarHttpMethod  = strings.ToUpper("Get")
-		localVarPostBody    interface{}
-		localVarFileName    string
-		localVarFileBytes   []byte
-		localVarReturnValue IndexedRouteMapResponse
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/indexed-route-map"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if localVarOptionals != nil && localVarOptionals.OnlyDirectRoutes.IsSet() {
-		localVarQueryParams.Add("onlyDirectRoutes", parameterToString(localVarOptionals.OnlyDirectRoutes.Value(), ""))
-	}
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
-	}
-
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode < 300 {
-		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-		if err == nil {
-			return localVarReturnValue, localVarHttpResponse, err
-		}
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v IndexedRouteMapResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		return localVarReturnValue, localVarHttpResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHttpResponse, nil
-}
-
-/*
-DefaultApiService GET /program-id-to-label
+SwapApiService GET /program-id-to-label
 Returns a hash, which key is the program id and value is the label. This is used to help map error from transaction by identifying the fault program id. With that, we can use the &#x60;excludeDexes&#x60; or &#x60;dexes&#x60; parameter.
   - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 
 @return map[string]string
 */
-func (a *DefaultApiService) ProgramIdToLabelGet(ctx context.Context) (map[string]string, *http.Response, error) {
+func (a *SwapApiService) ProgramIdToLabelGet(ctx context.Context) (map[string]string, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -136,7 +42,7 @@ func (a *DefaultApiService) ProgramIdToLabelGet(ctx context.Context) (map[string
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/program-id-to-label"
+	localVarPath := a.client.cfg.SwapBasePath + "/program-id-to-label"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -205,7 +111,7 @@ func (a *DefaultApiService) ProgramIdToLabelGet(ctx context.Context) (map[string
 }
 
 /*
-DefaultApiService GET /quote
+SwapApiService GET /quote
 Sends a GET request to the Jupiter API to get the best priced quote.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param inputMint Input token mint address
@@ -248,7 +154,7 @@ type DefaultApiQuoteGetOpts struct {
 	PreferLiquidDexes             optional.Bool
 }
 
-func (a *DefaultApiService) QuoteGet(ctx context.Context, inputMint string, outputMint string, amount uint64, localVarOptionals *DefaultApiQuoteGetOpts) (QuoteResponse, *http.Response, error) {
+func (a *SwapApiService) QuoteGet(ctx context.Context, inputMint string, outputMint string, amount uint64, localVarOptionals *DefaultApiQuoteGetOpts) (QuoteResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -258,7 +164,7 @@ func (a *DefaultApiService) QuoteGet(ctx context.Context, inputMint string, outp
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/quote"
+	localVarPath := a.client.cfg.SwapBasePath + "/quote"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -375,14 +281,14 @@ func (a *DefaultApiService) QuoteGet(ctx context.Context, inputMint string, outp
 }
 
 /*
-DefaultApiService POST /swap-instructions
+SwapApiService POST /swap-instructions
 Returns instructions that you can use from the quote you get from &#x60;/quote&#x60;.
   - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param body
 
 @return SwapInstructionsResponse
 */
-func (a *DefaultApiService) SwapInstructionsPost(ctx context.Context, body SwapRequest) (SwapInstructionsResponse, *http.Response, error) {
+func (a *SwapApiService) SwapInstructionsPost(ctx context.Context, body SwapRequest) (SwapInstructionsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -392,7 +298,7 @@ func (a *DefaultApiService) SwapInstructionsPost(ctx context.Context, body SwapR
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/swap-instructions"
+	localVarPath := a.client.cfg.SwapBasePath + "/swap-instructions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -463,14 +369,14 @@ func (a *DefaultApiService) SwapInstructionsPost(ctx context.Context, body SwapR
 }
 
 /*
-DefaultApiService POST /swap
+SwapApiService POST /swap
 Returns a transaction that you can use from the quote you get from &#x60;/quote&#x60;.
   - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param body
 
 @return SwapResponse
 */
-func (a *DefaultApiService) SwapPost(ctx context.Context, body SwapRequest) (SwapResponse, *http.Response, error) {
+func (a *SwapApiService) SwapPost(ctx context.Context, body SwapRequest) (SwapResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -480,7 +386,7 @@ func (a *DefaultApiService) SwapPost(ctx context.Context, body SwapRequest) (Swa
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/swap"
+	localVarPath := a.client.cfg.SwapBasePath + "/swap"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -536,91 +442,6 @@ func (a *DefaultApiService) SwapPost(ctx context.Context, body SwapRequest) (Swa
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v SwapResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		return localVarReturnValue, localVarHttpResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHttpResponse, nil
-}
-
-/*
-DefaultApiService GET /tokens
-Returns a list of all the tradable mints
-  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-
-@return []string
-*/
-func (a *DefaultApiService) TokensGet(ctx context.Context) ([]string, *http.Response, error) {
-	var (
-		localVarHttpMethod  = strings.ToUpper("Get")
-		localVarPostBody    interface{}
-		localVarFileName    string
-		localVarFileBytes   []byte
-		localVarReturnValue []string
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/tokens"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
-	}
-
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHttpResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode < 300 {
-		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-		if err == nil {
-			return localVarReturnValue, localVarHttpResponse, err
-		}
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v []string
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

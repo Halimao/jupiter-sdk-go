@@ -18,9 +18,9 @@ type SwapRequest struct {
 	// Fee token account, same as the output token for ExactIn and as the input token for ExactOut, it is derived using the seeds = [\"referral_ata\", referral_account, mint] and the `REFER4ZgmyYx9c6He5XfaTMiGfdLwRnkV4RPp9t9iF3` referral contract (only pass in if you set a feeBps and make sure that the feeAccount has been created).
 	FeeAccount string `json:"feeAccount,omitempty"`
 	// The compute unit price to prioritize the transaction, the additional fee will be `computeUnitLimit (1400000) * computeUnitPriceMicroLamports`. If `auto` is used, Jupiter will automatically set a priority fee and it will be capped at 5,000,000 lamports / 0.005 SOL.
-	ComputeUnitPriceMicroLamports *AnyOfSwapRequestComputeUnitPriceMicroLamports `json:"computeUnitPriceMicroLamports,omitempty"`
+	ComputeUnitPriceMicroLamports int64 `json:"computeUnitPriceMicroLamports,omitempty"`
 	// \\* PriorityFeeWithMaxLamports is impossible to be typed. Prioritization fee lamports paid for the transaction in addition to the signatures fee. Mutually exclusive with compute_unit_price_micro_lamports. If `auto` is used, Jupiter will automatically set a priority fee and it will be capped at 5,000,000 lamports / 0.005 SOL.
-	PrioritizationFeeLamports *AnyOfSwapRequestPrioritizationFeeLamports `json:"prioritizationFeeLamports,omitempty"`
+	PrioritizationFeeLamports *PrioritizationFeeLamports `json:"prioritizationFeeLamports,omitempty"`
 	// Default is false. Request a legacy transaction rather than the default versioned transaction, needs to be paired with a quote using asLegacyTransaction otherwise the transaction might be too large.
 	AsLegacyTransaction bool `json:"asLegacyTransaction,omitempty"`
 	// Default is false. This is useful when the instruction before the swap has a transfer that increases the input token amount. Then, the swap will just use the difference between the token ledger token amount and post token amount.

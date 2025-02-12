@@ -26,39 +26,15 @@ import "github.com/Halimao/jupiter-sdk-go"
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://quote-api.jup.ag/v6*
+All URIs are relative to *https://api.jup.ag*
 
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-*DefaultApi* | [**IndexedRouteMapGet**](docs/DefaultApi.md#indexedroutemapget) | **Get** /indexed-route-map | GET /indexed-route-map
-*DefaultApi* | [**ProgramIdToLabelGet**](docs/DefaultApi.md#programidtolabelget) | **Get** /program-id-to-label | GET /program-id-to-label
-*DefaultApi* | [**QuoteGet**](docs/DefaultApi.md#quoteget) | **Get** /quote | GET /quote
-*DefaultApi* | [**SwapInstructionsPost**](docs/DefaultApi.md#swapinstructionspost) | **Post** /swap-instructions | POST /swap-instructions
-*DefaultApi* | [**SwapPost**](docs/DefaultApi.md#swappost) | **Post** /swap | POST /swap
-*DefaultApi* | [**TokensGet**](docs/DefaultApi.md#tokensget) | **Get** /tokens | GET /tokens
-
-## Documentation For Models
-
- - [AccountMeta](docs/AccountMeta.md)
- - [AnyOfSwapRequestComputeUnitPriceMicroLamports](docs/AnyOfSwapRequestComputeUnitPriceMicroLamports.md)
- - [AnyOfSwapRequestPrioritizationFeeLamports](docs/AnyOfSwapRequestPrioritizationFeeLamports.md)
- - [IndexedRouteMapResponse](docs/IndexedRouteMapResponse.md)
- - [Instruction](docs/Instruction.md)
- - [PlatformFee](docs/PlatformFee.md)
- - [PriorityFeeWithMaxLamports](docs/PriorityFeeWithMaxLamports.md)
- - [QuoteResponse](docs/QuoteResponse.md)
- - [RoutePlanStep](docs/RoutePlanStep.md)
- - [SwapInfo](docs/SwapInfo.md)
- - [SwapInstructionsResponse](docs/SwapInstructionsResponse.md)
- - [SwapMode](docs/SwapMode.md)
- - [SwapRequest](docs/SwapRequest.md)
- - [SwapRequestDynamicSlippage](docs/SwapRequestDynamicSlippage.md)
- - [SwapResponse](docs/SwapResponse.md)
- - [SwapResponseDynamicSlippageReport](docs/SwapResponseDynamicSlippageReport.md)
-
-## Documentation For Authorization
- Endpoints do not require authorization.
-
+Class | Method | URI
+------------ | ------------- | -------------
+*SwapApi* | **ProgramIdToLabelGet** | **Get** https://api.jup.ag/swap/v1/program-id-to-label
+*SwapApi* | **QuoteGet** | **Get** https://api.jup.ag/swap/v1/quote
+*SwapApi* | **SwapInstructionsPost** | **Post** https://api.jup.ag/swap/v1/swap-instructions
+*SwapApi* | **SwapPost** | **Post** https://api.jup.ag/swap/v1/swap
+*TokenApi* | **MintsTradableGet** | **Get** https://api.jup.ag/tokens/v1/mints/tradable
 
 ## Author
 @Halimao

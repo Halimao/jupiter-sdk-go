@@ -8,5 +8,20 @@
  */
 package jupiter
 
-type AnyOfSwapRequestComputeUnitPriceMicroLamports struct {
+type PriorityLevel = string
+
+const (
+	PriorityLevelMedium   PriorityLevel = "medium"
+	PriorityLevelHigh     PriorityLevel = "high"
+	PriorityLevelVeryHigh PriorityLevel = "veryHigh"
+)
+
+type PriorityLevelWithMaxLamports struct {
+	MaxLamports   int32         `json:"maxLamports,omitempty"`
+	PriorityLevel PriorityLevel `json:"priorityLevel,omitempty"`
+}
+
+type PrioritizationFeeLamports struct {
+	PriorityLevelWithMaxLamports *PriorityLevelWithMaxLamports `json:"priorityLevelWithMaxLamports,omitempty"`
+	JitoTipLamports              int32                         `json:"jitoTipLamports,omitempty"`
 }
